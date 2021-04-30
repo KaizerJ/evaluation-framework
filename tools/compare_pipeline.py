@@ -53,14 +53,14 @@ def output_wrong_pixels(dataset, results, outdir):
 
 def main():
 
-    configs_file = './configs/config.json'
+    configs_file = os.path.normpath('./configs/config.json')
 
     print('Loading config...')
     with open(configs_file, 'r' ) as conf:
         config = json.load(conf)
 
-    images_dir = config['dataset']['images folder']
-    ann_dir = config['dataset']['ann folder']
+    images_dir = os.path.normpath(config['dataset']['images folder'])
+    ann_dir = os.path.normpath(config['dataset']['ann folder'])
     dataset = ade20k(images_dir, ann_dir)
 
     models = config['models']
@@ -69,6 +69,7 @@ def main():
     print('Starting evaluating models...')
     for model in models:
         print('Evaluating ', model['model name'])
+        model['output dir'] = os.path.normpath( model['output dir'] )
         # creates output directory if not exists
         if not (os.path.exists(model['output dir'])):
             os.mkdir(model['output dir'])
