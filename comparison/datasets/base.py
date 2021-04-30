@@ -49,6 +49,6 @@ class BaseDataset():
     def load_annotations(self):
 
         if self.annotations == None:
-            self.annotations = [cv2.cvtColor(cv2.imread(filename, cv2.IMREAD_UNCHANGED), cv2.COLOR_BGR2RGB) for filename in self.ann_full_filenames]
+            self.annotations = [cv2.imread(filename, cv2.IMREAD_GRAYSCALE) for filename in self.ann_full_filenames]
         
         return self.annotations

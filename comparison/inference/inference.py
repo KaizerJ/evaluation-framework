@@ -57,6 +57,7 @@ def model_inference(config_file : str, checkpoint_file : str, imgs_files_list):
 
     segmentation_masks = list()
     for img in imgs_files_list:
+        print('Inferring:', img)
         segm_mask = segmentation_inference(model, img)
         segmentation_masks.append(segm_mask)
 

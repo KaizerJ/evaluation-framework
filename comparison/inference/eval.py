@@ -65,6 +65,8 @@ def format_models_metrics(headers: list, metrics: list, filenames: list, mean_me
     ## Takes out total pixel accuracy
     all_acc = mean_metrics.pop(0)
 
+    headers = list(headers)
+
     headers.insert(0, 'Filename')
     headers.append('Mean')
 
@@ -74,7 +76,7 @@ def format_models_metrics(headers: list, metrics: list, filenames: list, mean_me
 
     metrics.insert(0, [all_acc] * (len(headers) - 1))
 
-    with open(output_file, 'w') as outfile:
+    with open(output_file, 'w', newline='') as outfile:
         csvWriter = csv.DictWriter(outfile, delimiter = ',', 
                                     fieldnames=headers)
 

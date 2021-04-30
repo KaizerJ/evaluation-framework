@@ -1,0 +1,14 @@
+{
+    "dataset": {
+        "images folder": ".\\data\\images",
+        "ann folder": ".\\data\\annotations"
+    }, 
+    "models": [
+        {
+            "name": "DeepLabv3plus_resnest101",
+            "config": ".\\configs\\resnest\\deeplabv3plus_s101-d8_512x512_160k_ade20k.py",
+            "checkpoint": ".\\checkpoints\\deeplabv3plus_s101-d8_512x512_160k_ade20k_20200807_144503-27b26226.pth",
+            "output dir": ".\\data\\results\\DeepLabv3plus_resnest101"
+        }
+    ]
+}
