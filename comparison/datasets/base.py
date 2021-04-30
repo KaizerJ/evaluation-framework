@@ -26,10 +26,13 @@ class BaseDataset():
         self.ignore_index = ignore_index
         self.reduce_zeros_label = reduce_zero_label
 
-        self.images_filenames = list_full_filenames(self.img_dir)
-        self.ann_filenames = list_full_filenames(self.annotations_dir)
+        self.images_full_filenames = list_full_filenames(self.img_dir)
+        self.ann_full_filenames = list_full_filenames(self.annotations_dir)
 
-        if len(self.images_filenames) != len(self.ann_filenames):
+        self.images_filenames = [os.path.basename(full_filename) for full_filename in self.images_full_filenames]
+        self.ann_filenames = [os.path.basename(full_filename) for full_filename in self.ann_full_filenames]
+
+        if len(self.images_full_filenames) != len(self.ann_full_filenames):
             raise Exception('Number of images and annotations is not the same')
 
         self.images = None
@@ -39,13 +42,13 @@ class BaseDataset():
     def load_images(self):
 
         if self.images == None:
-            self.images = [cv2.imread(filename, cv2.IMREAD_COLOR) for filename in self.images_filenames]
+            self.images = [cv2.cvtColor(cv2.imread(filename, cv2.IMREAD_UNCHANGED), cv2.COLOR_BGR2RGB) for filename in self.images_full_filenames]
 
         return self.images
 
     def load_annotations(self):
 
         if self.annotations == None:
-            self.annotations = [cv2.imread(filename, cv2.IMREAD_GRAYSCALE) for filename in self.ann_filenames]
+            self.annotations = [cv2.cvtColor(cv2.imread(filename, cv2.IMREAD_UNCHANGED), cv2.COLOR_BGR2RGB) for filename in self.ann_full_filenames]
         
         return self.annotations
