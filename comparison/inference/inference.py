@@ -25,11 +25,11 @@ def tensor_inference(model, img):
     return prob_tensor
 
 
-def segmentation_inference(model, img):
+def segmentation_inference(model, img, keep_classes):
 
     prob_tensor = tensor_inference(model, img)
 
-    relevant_classes = np.array([1,2,3,4,5,10,14,18,27,35,47,62,73,77,95,110,141]) - 1
+    relevant_classes = np.array(keep_classes) - 1
     m = np.ones(prob_tensor.shape, dtype=bool)
     m[relevant_classes] = False
 
@@ -39,13 +39,14 @@ def segmentation_inference(model, img):
 
     return segmentation_mask
 
-def model_inference(config_file : str, checkpoint_file : str, imgs_files_list):
+def model_inference(config_file : str, checkpoint_file : str, imgs_files_list : list, keep_classes : list):
     """Builds the model and infers a list of images.
 
     Args:
         config_file (str): MMSegmentation models config filename.
         checkpoint_file (str): Models .pth checkpoint filename.
         imgs_files_list (list[str]): List of images filenames to infer of.
+        keep_classes (list[int]): List of classes to keep from prob tensor.
     Returns:
         list[ndarray]: List of inferred segmentation masks.
     """
@@ -58,7 +59,7 @@ def model_inference(config_file : str, checkpoint_file : str, imgs_files_list):
     segmentation_masks = list()
     for img in imgs_files_list:
         print('Inferring:', img)
-        segm_mask = segmentation_inference(model, img)
+        segm_mask = segmentation_inference(model, img, keep_classes)
         segmentation_masks.append(segm_mask)
 
     return segmentation_masks

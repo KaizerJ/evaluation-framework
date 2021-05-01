@@ -64,7 +64,11 @@ def main():
     dataset = ade20k(images_dir, ann_dir)
 
     models = config['models']
-    headers = dataset.CLASSES
+
+    keep_classes = [1,2,3,4,5,10,14,18,27,35,47,62,73,77,95,110,141]
+    keep_classes_index = [class_index - 1 for class_index in keep_classes] # Used for indexing
+
+    headers = [dataset.CLASSES[index] for index in keep_classes_index]
 
     print('Starting models evaluation...')
     for model in models:
@@ -75,13 +79,15 @@ def main():
             os.mkdir(model['output dir'])
 
         # inference over the dataset images
-        results = model_inference(model['config'], model['checkpoint'], dataset.images_full_filenames)
+        results = model_inference(model['config'], model['checkpoint'], dataset.images_full_filenames, keep_classes)
 
         # outputs resulting masks
         output_results(dataset, results, model['output dir'])
 
         # computes metrics
         metrics, mean_metrics = model_eval(results, dataset, '')
+        # Filters unused classes metrics (which are nan)
+        metrics = [metric[keep_classes_index] for metric in metrics]
 
         # outputs metrics
         output_metrics(headers, metrics, mean_metrics, dataset, model)
