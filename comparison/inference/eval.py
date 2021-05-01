@@ -42,7 +42,7 @@ def model_eval(results: list, dataset : BaseDataset, output_dir):
     Formato CSV de salida de las métricas:
 
     Filename,    header1,    header2, ...,    headerN,    mean
-    Absolute Acc,all_acc,    all_acc, ...,    all_acc,    all_acc
+    Absolute Acc,all_acc,    -, ...,          -,          all_acc
     Accuracies,  class1_acc, class2_acc, ..., classN_acc, total_mean_acc
     Class Means, class1_iou, class2_iou, ..., classN_iou, total_mIOU
     filename1,   iou_11,     iou_12,...,      iou_1N,     mean_1
@@ -63,18 +63,18 @@ def format_models_metrics(headers: list, metrics: list, filenames: list, mean_me
     """
 
     ## Takes out total pixel accuracy
-    all_acc = mean_metrics.pop(0)
+    all_acc = mean_metrics[0]
 
     headers = list(headers)
 
     headers.insert(0, 'Filename')
     headers.append('Mean')
 
-    filenames.insert(0, 'Class Means')
+    filenames.insert(0, 'Class IoUs')
     filenames.insert(0, 'Class Accuracies')
     filenames.insert(0, 'Absolute Accuracy')
 
-    metrics.insert(0, [all_acc] * (len(headers) - 1))
+    metrics.insert(0, [all_acc] + ['-'] * (len(headers) - 1))
 
     with open(output_file, 'w', newline='') as outfile:
         csvWriter = csv.DictWriter(outfile, delimiter = ',', 
