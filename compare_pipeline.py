@@ -16,9 +16,11 @@ def output_results(dataset, results, outdir):
 
     for filename, image, result in zip(dataset.ann_filenames, dataset.load_images(), results):
         out_filename = os.path.join(pred_dir, filename)
+        print('Saving image results in', out_filename)
         visualize_mask(image, result, dataset.PALETTE, save=out_filename, show=False)
 
 def output_metrics(headers, metrics, mean_metrics, dataset, model):
+    print('Formatting and saving results metrics')
     out_filename = os.path.join(model['output dir'], model['name'] + '_metrics.csv')
     format_models_metrics(headers, metrics, dataset.images_filenames, mean_metrics, out_filename)
 
@@ -30,6 +32,7 @@ def output_wrong_pixels(dataset, results, outdir):
 
     for filename, image, result, gt in zip(dataset.ann_filenames, dataset.load_images(), results, dataset.load_annotations()):
         out_filename = os.path.join(pixels_dir, filename)
+        print('Saving pixels accuracy image in', out_filename)
         visualize_wrong_pixels(image, gt, result, save=out_filename, show=False)
 
 """
