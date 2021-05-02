@@ -1,5 +1,6 @@
 data/
 checkpoints/
 #configs/**
+bugs.txt
 
 */**/__pycache__

@@ -2,7 +2,9 @@ import PIL.Image
 import numpy
 
 def wrong_pixels(ground_truth, inference_mask):
-    return (ground_truth-1) != inference_mask
+    wp = (ground_truth-1) != inference_mask
+    wp[ ground_truth == 255 ] = False  # 255 index is ignored (255 is 0 in original gt)
+    return wp
 
 
 def map_wrong_pixels(img, ground_truth, pred):
