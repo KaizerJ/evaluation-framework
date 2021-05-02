@@ -5,10 +5,10 @@
     }, 
     "models": [
         {
-            "name": "DeepLabv3plus_resnest101",
-            "config": ".\\configs\\resnest\\deeplabv3plus_s101-d8_512x512_160k_ade20k.py",
-            "checkpoint": ".\\checkpoints\\deeplabv3plus_s101-d8_512x512_160k_ade20k_20200807_144503-27b26226.pth",
-            "output dir": ".\\data\\results\\DeepLabv3plus_resnest101"
+            "name": "Upernet_resnet101",
+            "config": ".\\configs\\upernet\\upernet_r101_512x512_160k_ade20k.py",
+            "checkpoint": ".\\checkpoints\\upernet_r101_512x512_160k_ade20k_20200615_161951-91b32684.pth",
+            "output dir": ".\\data\\results\\Upernet_resnet101"
         }
     ]
 }

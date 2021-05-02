@@ -70,6 +70,8 @@ def format_models_metrics(headers: list, metrics: list, filenames: list, mean_me
     headers.insert(0, 'Filename')
     headers.append('Mean')
 
+    filenames = list(filenames)
+
     filenames.insert(0, 'Class IoUs')
     filenames.insert(0, 'Class Accuracies')
     filenames.insert(0, 'Absolute Accuracy')

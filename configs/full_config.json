@@ -1,0 +1,80 @@
+{
+    "dataset": {
+        "images folder": ".\\data\\images",
+        "ann folder": ".\\data\\annotations"
+    }, 
+    "models": [
+        {
+            "name": "FCN_resnest101",
+            "config": ".\\configs\\resnest\\fcn_s101-d8_512x512_160k_ade20k.py",
+            "checkpoint": ".\\checkpoints\\fcn_s101-d8_512x512_160k_ade20k_20200807_145416-d3160329.pth",
+            "output dir": ".\\data\\results\\FCN_resnest101"
+        },
+        {
+            "name": "PSPNet_resnest101",
+            "config": ".\\configs\\resnest\\pspnet_s101-d8_512x512_160k_ade20k.py",
+            "checkpoint": ".\\checkpoints\\pspnet_s101-d8_512x512_160k_ade20k_20200807_145416-a6daa92a.pth",
+            "output dir": ".\\data\\results\\PSPNet_resnest101"
+        },
+        {
+            "name": "DeepLabv3_resnest101",
+            "config": ".\\configs\\resnest\\deeplabv3_s101-d8_512x512_160k_ade20k.py",
+            "checkpoint": ".\\checkpoints\\deeplabv3_s101-d8_512x512_160k_ade20k_20200807_144503-17ecabe5.pth",
+            "output dir": ".\\data\\results\\DeepLabv3_resnest101"
+        },
+        {
+            "name": "DeepLabv3plus_resnest101",
+            "config": ".\\configs\\resnest\\deeplabv3plus_s101-d8_512x512_160k_ade20k.py",
+            "checkpoint": ".\\checkpoints\\deeplabv3plus_s101-d8_512x512_160k_ade20k_20200807_144503-27b26226.pth",
+            "output dir": ".\\data\\results\\DeepLabv3plus_resnest101"
+        },
+        {
+            "name": "DeepLabv3plus_resnet101",
+            "config": ".\\configs\\deeplabv3plus\\deeplabv3plus_r101-d8_512x512_160k_ade20k.py",
+            "checkpoint": ".\\checkpoints\\deeplabv3plus_r101-d8_512x512_160k_ade20k_20200615_123232-38ed86bb.pth",
+            "output dir": ".\\data\\results\\DeepLabv3plus_resnet101"
+        },
+        {
+            "name": "DeepLabv3_resnet101",
+            "config": ".\\configs\\deeplabv3\\deeplabv3_r101-d8_512x512_160k_ade20k.py",
+            "checkpoint": ".\\checkpoints\\deeplabv3_r101-d8_512x512_160k_ade20k_20200615_105816-b1f72b3b.pth",
+            "output dir": ".\\data\\results\\DeepLabv3_resnet101"
+        },
+        {
+            "name": "PSPNet_resnet101",
+            "config": ".\\configs\\pspnet\\pspnet_r101-d8_512x512_160k_ade20k.py",
+            "checkpoint": ".\\checkpoints\\pspnet_r101-d8_512x512_160k_ade20k_20200615_100650-967c316f.pth",
+            "output dir": ".\\data\\results\\PSPNet_resnet101"
+        },
+        {
+            "name": "DANet_resnet101",
+            "config": ".\\configs\\danet\\danet_r101-d8_512x512_160k_ade20k.py",
+            "checkpoint": ".\\checkpoints\\danet_r101-d8_512x512_160k_ade20k_20200616_082348-23bf12f9.pth",
+            "output dir": ".\\data\\results\\DANet_resnet101"
+        },
+        {
+            "name": "APCNet_resnet101_80k",
+            "config": ".\\configs\\apcnet\\apcnet_r101-d8_512x512_80k_ade20k.py",
+            "checkpoint": ".\\checkpoints\\apcnet_r101-d8_512x512_80k_ade20k_20201214_115704-c656c3fb.pth",
+            "output dir": ".\\data\\results\\APCNet_resnet101_80k"
+        },
+        {
+            "name": "APCNet_resnet101_160k",
+            "config": ".\\configs\\apcnet\\apcnet_r101-d8_512x512_160k_ade20k.py",
+            "checkpoint": ".\\checkpoints\\apcnet_r101-d8_512x512_160k_ade20k_20201214_115705-73f9a8d7.pth",
+            "output dir": ".\\data\\results\\APCNet_resnet101_160k"
+        },
+        {
+            "name": "DNL_resnet101",
+            "config": ".\\configs\\dnlnet\\dnl_r101-d8_512x512_160k_ade20k.py",
+            "checkpoint": ".\\checkpoints\\dnl_r101-d8_512x512_160k_ade20k_20200826_183350-ed522c61.pth",
+            "output dir": ".\\data\\results\\DNL_resnet101"
+        },
+        {
+            "name": "Upernet_resnet101",
+            "config": ".\\configs\\upernet\\upernet_r101_512x512_160k_ade20k.py",
+            "checkpoint": ".\\checkpoints\\upernet_r101_512x512_160k_ade20k_20200615_161951-91b32684.pth",
+            "output dir": ".\\data\\results\\Upernet_resnet101"
+        }
+    ]
+}

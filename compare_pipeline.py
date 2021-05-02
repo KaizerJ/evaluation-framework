@@ -75,7 +75,7 @@ def main():
 
     print('Starting models evaluation...')
     for model in models:
-        print('Evaluating ', model['name'])
+        print('#######################################\nEvaluating ', model['name'])
         model['output dir'] = os.path.normpath( model['output dir'] )
         # creates output directory if not exists
         if not (os.path.exists(model['output dir'])):
