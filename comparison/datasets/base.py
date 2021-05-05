@@ -29,6 +29,9 @@ class BaseDataset():
         self.images_full_filenames = list_full_filenames(self.img_dir)
         self.ann_full_filenames = list_full_filenames(self.annotations_dir)
 
+        self.images_full_filenames.sort()
+        self.ann_full_filenames.sort()
+
         self.images_filenames = [os.path.basename(full_filename) for full_filename in self.images_full_filenames]
         self.ann_filenames = [os.path.basename(full_filename) for full_filename in self.ann_full_filenames]
 
