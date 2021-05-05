@@ -2,7 +2,6 @@ import os
 from collections import OrderedDict
 import csv
 
-from comparison.inference.inference import model_inference
 from comparison.metrics.metrics import eval_metrics
 from comparison.datasets.base import BaseDataset
 
