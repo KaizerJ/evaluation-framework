@@ -1,5 +1,6 @@
 import os
 import cv2
+from comparison.postprocess.pipeline import PostProcessPipeline
 
 def list_full_filenames(dirName):
     full_filenames = list()
@@ -17,7 +18,8 @@ class BaseDataset():
                  img_suffix,
                  ann_suffix,
                  ignore_index=255,
-                 reduce_zero_label=True):
+                 reduce_zero_label=True,
+                 ann_postprocess_pipeline=PostProcessPipeline()):
         self.img_dir = img_dir
         self.annotations_dir = annotations_dir
         self.num_classes = num_classes
@@ -25,6 +27,7 @@ class BaseDataset():
         self.ann_suffix = ann_suffix
         self.ignore_index = ignore_index
         self.reduce_zeros_label = reduce_zero_label
+        self.ann_postprocess_pipeline = ann_postprocess_pipeline
 
         self.images_full_filenames = list_full_filenames(self.img_dir)
         self.ann_full_filenames = list_full_filenames(self.annotations_dir)
@@ -52,6 +55,10 @@ class BaseDataset():
     def load_annotations(self):
 
         if self.annotations == None:
+            # load annotations
             self.annotations = [cv2.imread(filename, cv2.IMREAD_GRAYSCALE) for filename in self.ann_full_filenames]
+            # apply postprocessing pipeline
+            for ann in self.annotations:
+                self.ann_postprocess_pipeline(ann)
         
         return self.annotations

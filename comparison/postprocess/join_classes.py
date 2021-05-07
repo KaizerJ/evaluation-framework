@@ -1,7 +1,7 @@
-import post_process
+from comparison.postprocess.post_process import PostProcess
 import numpy
 
-class JoinClasses(post_process.PostProcess):
+class JoinClasses(PostProcess):
 
     def __init__(self, classes, joint_class):
         self.classes = classes

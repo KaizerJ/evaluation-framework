@@ -2,9 +2,8 @@
 
 ## TODO
 - Adding postproccessings: 
-    1. Joining vegetation classes together
-    2. Think about others
-- Consider ignoring 0 index in wrong_pixels
+    1. Think about others
+- Adjust output metrics format to add virtual classes and remove jointClasses
 
 ## Authors
 - Jonay Suárez Ramírez
