@@ -66,7 +66,7 @@ def model_inference(model_type, model_path, dataset, keep_classes):
     for img_name, img in zip(dataset.images_filenames, dataset.load_images()):
         print('Inferring:', img_name)
         
-        img_input = transform({"image": img})["image"]
+        img_input = transform({"image": img / 255.0})["image"]
 
         # compute
         with torch.no_grad():
