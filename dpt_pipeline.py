@@ -154,7 +154,7 @@ def main():
 
     models = config['models']
 
-    keep_classes = [1,2,3,4,5,10,14,18,27,35,47,62,73,77,95,110,141]
+    keep_classes = [1,2,3,4,5,10,14,18,27,35,47,62,73,77,110,141]
     keep_classes_index = [class_index - 1 for class_index in keep_classes] # Used for indexing
 
     headers = [dataset.CLASSES[index] for index in keep_classes_index]

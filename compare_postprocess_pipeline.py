@@ -97,8 +97,15 @@ def main():
 
     models = config['models']
 
-    keep_classes = [1,2,3,4,5,10,14,18,27,35,47,62,73,77,95,110,141]
-    keep_classes_index = [class_index - 1 for class_index in keep_classes] # Used for indexing
+    keep_classes = [1,2,3,4,5,10,14,18,27,35,47,62,73,77,110,141]
+
+    header_classes = list(keep_classes)
+    # removes joint classes
+    for removed_class in vegetation_classes:
+        header_classes.remove(removed_class)
+    # adds the common class
+    header_classes.append(joint_vegetation_class)
+    keep_classes_index = [class_index - 1 for class_index in header_classes] # Used for indexing
 
     headers = [dataset.CLASSES[index] for index in keep_classes_index]
 
