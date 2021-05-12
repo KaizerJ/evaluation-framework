@@ -11,9 +11,11 @@ from torchvision.transforms import Compose
 from dpt.models import DPTSegmentationModel
 from dpt.transforms import Resize, NormalizeImage, PrepareForNet
 
-from comparison.datasets.ade20k import ade20k
+from comparison.datasets.eade20k import ExtendedAde20k
 from comparison.inference.eval import model_eval, format_models_metrics
 from comparison.visualization.visualize import visualize_wrong_pixels, visualize_mask
+from comparison.postprocess.pipeline import PostProcessPipeline
+from comparison.postprocess.join_classes import JoinClasses
 
 # Some code adapted from https://github.com/intel-isl/DPT/blob/main/run_segmentation.py
 def model_inference(model_type, model_path, dataset, keep_classes):
@@ -121,6 +123,10 @@ def output_wrong_pixels(dataset, results, outdir):
         print('Saving pixels accuracy image in', out_filename)
         visualize_wrong_pixels(image, gt, result, save=out_filename, show=False)
 
+def apply_postprocess(results, post_process):
+    for result in results:
+        post_process(result)
+
 """
     Expected JSON config:
     {
@@ -150,12 +156,41 @@ def main():
 
     images_dir = os.path.normpath(config['dataset']['images folder'])
     ann_dir = os.path.normpath(config['dataset']['ann folder'])
-    dataset = ade20k(images_dir, ann_dir)
+    
+    ## Initialize ann postprocessing pipeline
+    vegetation_classes = [5, 10, 18, 73]
+    joint_vegetation_class = 151
+    
+    virtual_classes = ('vegetation',)
+    virtual_palette = [[1, 68, 33]]
+
+    ann_post_process = PostProcessPipeline(
+        (JoinClasses(classes=vegetation_classes, joint_class=joint_vegetation_class),)
+    )
+
+    dataset = ExtendedAde20k(images_dir, ann_dir, ann_post_process, 
+                             virtual_classes=virtual_classes, 
+                             virtual_palette=virtual_palette)
+
+    ## Initialize pred postprocessing (every index is (ann - 1))
+    pred_vegetation_classes = [4, 9, 17, 72]
+    pred_joint_vegetation_class = 150
+
+    pred_post_process = PostProcessPipeline(
+        (JoinClasses(classes=pred_vegetation_classes, joint_class=pred_joint_vegetation_class),)
+    )
 
     models = config['models']
 
     keep_classes = [1,2,3,4,5,10,14,18,27,35,47,62,73,77,110,141]
-    keep_classes_index = [class_index - 1 for class_index in keep_classes] # Used for indexing
+
+    header_classes = list(keep_classes)
+    # removes joint classes
+    for removed_class in vegetation_classes:
+        header_classes.remove(removed_class)
+    # adds the common class
+    header_classes.append(joint_vegetation_class)
+    keep_classes_index = [class_index - 1 for class_index in header_classes] # Used for indexing
 
     headers = [dataset.CLASSES[index] for index in keep_classes_index]
 
@@ -169,6 +204,8 @@ def main():
 
         # inference over the dataset images
         results = model_inference(model['config'], model['checkpoint'], dataset, keep_classes)
+
+        apply_postprocess(results, pred_post_process)
 
         # outputs resulting masks
         output_results(dataset, results, model['output dir'])
