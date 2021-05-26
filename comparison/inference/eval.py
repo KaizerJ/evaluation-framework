@@ -13,14 +13,13 @@ def get_full_filenames(input_dir):
     
     return full_filenames
 
-def model_eval(results: list, dataset : BaseDataset, output_dir):
+def model_eval(results: list, dataset : BaseDataset):
     """Evaluates a models results.
     
     Args:
         config_file (str): MMSegmentation models config filename.
         checkpoint_file (str): Models .pth checkpoint filename.
         input_dir (str): Input images directory.
-        output_dir (str): Results outputs directory.
     Returns:
         list[ndarray]: List of inferred segmentation masks.
     """

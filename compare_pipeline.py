@@ -7,7 +7,7 @@ from comparison.inference.eval import model_eval, format_models_metrics
 from comparison.visualization.visualize import visualize_wrong_pixels, visualize_mask
 
 
-def output_results(dataset, results, outdir):
+def output_results(dataset, results, outdir, opacity):
     
     pred_dir = os.path.join(outdir, 'predictions')
 
@@ -17,7 +17,7 @@ def output_results(dataset, results, outdir):
     for filename, image, result in zip(dataset.ann_filenames, dataset.load_images(), results):
         out_filename = os.path.join(pred_dir, filename)
         print('Saving image results in', out_filename)
-        visualize_mask(image, result, dataset.PALETTE, save=out_filename, show=False)
+        visualize_mask(image, result, dataset.PALETTE, save=out_filename, show=False, opacity=opacity)
 
 def output_metrics(headers, metrics, mean_metrics, dataset, model):
     print('Formatting and saving results metrics')
@@ -57,6 +57,7 @@ def output_wrong_pixels(dataset, results, outdir):
 def main():
 
     configs_file = os.path.normpath('./configs/config.json')
+    opacity = 1
 
     print('Loading config...')
     with open(configs_file, 'r' ) as conf:
@@ -85,10 +86,10 @@ def main():
         results = model_inference(model['config'], model['checkpoint'], dataset.images_full_filenames, keep_classes)
 
         # outputs resulting masks
-        output_results(dataset, results, model['output dir'])
+        output_results(dataset, results, model['output dir'], opacity)
 
         # computes metrics
-        metrics, mean_metrics = model_eval(results, dataset, '')
+        metrics, mean_metrics = model_eval(results, dataset)
         # Filters unused classes metrics (which are nan)
         metrics = [metric[keep_classes_index] for metric in metrics]
 

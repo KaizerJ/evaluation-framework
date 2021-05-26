@@ -34,12 +34,12 @@ def visualize_wrong_pixels(img, ground_truth, pred, save='', show=True):
     if( show ):
         masked_image.show()
 
-def map_mask(img, pred, pallette):
+def map_mask(img, pred, pallette, opacity):
 
     mask = numpy.zeros((pred.shape[0], pred.shape[1], 4))
     for index in numpy.unique(pred):
         channels = list(pallette[index])
-        channels.append(0.5*255)
+        channels.append(opacity*255)
         mask[ pred == index ] = channels
 
     mask = mask.astype(numpy.uint8)
@@ -52,9 +52,9 @@ def map_mask(img, pred, pallette):
 
     return masked_image
 
-def visualize_mask(img, pred, pallette, save='', show=True):
+def visualize_mask(img, pred, pallette, save='', show=True, opacity=0.5):
 
-    masked_image = map_mask(img, pred, pallette)
+    masked_image = map_mask(img, pred, pallette, opacity)
 
     if( save != '' ):
         masked_image.save(save)
