@@ -1,4 +1,4 @@
-# Segmentation Comparison
+# Semantic Segmentation Comparison
 
 ## TODO
 - Adding postproccessings: 
