@@ -9,7 +9,7 @@ This code was developed as part of the undergraduate thesis "Analysis of coastal
 2. Write the [config file](./config/config.json):
     
     Expected JSON config:
-    ```json
+    ```
     {
         dataset: {
             images folder: ...,
