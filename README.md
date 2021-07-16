@@ -6,7 +6,7 @@ This code was developed as part of the undergraduate thesis "Analysis of coastal
 ## HOWTO
 
 1. Install MMSegmentation repository and its dependecies.
-2. Write the [config file](./config/config.json):
+2. Write the [config file](./configs/config.json):
     
     Expected JSON config:
     ```
